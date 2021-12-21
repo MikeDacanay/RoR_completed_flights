@@ -4,25 +4,10 @@ import { tryCatchHandlr } from "../../shared/helpers";
 import { AirlineHeader } from "../AirlineHeader";
 import axios from 'axios';
 
+import { useAirline } from "./customHooks";
+
 export const Airline = props => {  
-    const [ airlineAttr, setAirlineAttr ] = useState({});
-    const [ review, setReview ] = useState({});
-    const [ loaded, setLoaded] = useState(false);
-    const { slug }= useParams();
-
-    useEffect(() => {
-        (async() => {
-            const response = axios.get(`/api/v1/airlines/${slug}`); 
-
-            const [data, error] = await tryCatchHandlr(response);
-
-            if(data){              
-                const {data: info, included} = data; 
-                setAirlineAttr({...info, ...included});
-                setLoaded(true)
-            }
-        })()
-    }, [])
+    const { airlineAttr, loaded } = useAirline();
 
     return (
         <div className="airline-wrapper">
