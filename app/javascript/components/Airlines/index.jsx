@@ -3,7 +3,7 @@ import { useAirlines } from "./customHooks";
 import { airlinesItems } from "./partials";
 
 export const Airlines = props => {
-  const { airlines } = useAirlines();
+  const { airlines, setAirlines} = useAirlines();
 
   return (
     <div className="home">
@@ -11,11 +11,8 @@ export const Airlines = props => {
         <h1>OpenFlights</h1>
         <div className="subheader">Honest, unbiased airlines reviewed.</div>
       </div>
-      <div className="grid">
-        
-      </div>
       <ul className="Airlines">
-        {airlinesItems(airlines)}
+        {airlinesItems(airlines, setAirlines)}
       </ul>
     </div>
   )

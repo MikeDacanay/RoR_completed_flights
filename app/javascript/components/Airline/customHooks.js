@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const useAirline = () => {
     const [ airlineAttr, setAirlineAttr ] = useState({});
-    const [ review, setReview ] = useState({});
+    const [ reviews, setReviews ] = useState([]);
     const [ loaded, setLoaded] = useState(false);
     const { slug } = useParams();
 
@@ -16,12 +16,18 @@ export const useAirline = () => {
             const [data, error] = await tryCatchHandlr(response);
 
             if(data){              
-                const {data: info, included} = data; 
-                setAirlineAttr({...info, ...included});
+                const {data: info} = data;      
+                const {data: airlineInfo, included} = info;
+
+                setAirlineAttr({
+                    ...airlineInfo.attributes,
+                    id: airlineInfo.id,
+                });
+                setReviews(included)
                 setLoaded(true)
             }
         })()
     }, [])
 
-    return { airlineAttr, review, loaded };
+    return { airlineAttr, setAirlineAttr, reviews, setReviews, loaded};
 }

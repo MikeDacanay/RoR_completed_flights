@@ -3,6 +3,7 @@ module Api
         class AirlinesController < ApplicationController
             # protect_from_forgery with: :null_session
             skip_before_action :verify_authenticity_token
+            
 
             def index
                 airlines = Airline.all
@@ -39,12 +40,10 @@ module Api
             end
 
             def destroy
-                airline = Airline.find_by(airline_params)
-
                 if airline.destroy
                     head :no_content
                 else
-                    render json: {error: airline.errors.messages}, status: 422
+                    render json: errors(airline), status: 422
                 end
             end
 
@@ -53,6 +52,11 @@ module Api
             def airline_params
                 params.require(:airline).permit(:name, :img_url)
             end
+
+            def airline
+                @airline ||= Airline.includes(:reviews).find_by(slug: params[:slug])
+            end
+        
 
             def options
                 @options ||= { include: %i[reviews] }

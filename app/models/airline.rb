@@ -1,5 +1,5 @@
 class Airline < ApplicationRecord
-    has_many :reviews
+    has_many :reviews, dependent: :delete_all
 
     before_create :slugify
 

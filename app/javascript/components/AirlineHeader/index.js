@@ -1,16 +1,13 @@
 import React from "react";
 
 export const AirlineHeader = props => {
-  // const { name, img_url, avg_score} = props.attributes;
-  // const totalReviews = props.reviews.length;
-
   const {
     attributes: {
       name, 
       img_url, 
       avg_score
   },
-    reviews
+    reviews,
   } = props;
 
   return (

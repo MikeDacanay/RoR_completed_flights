@@ -18,5 +18,5 @@ export const useAirlines = () => {
         })()
     }, []);
 
-    return { airlines };
+    return { airlines, setAirlines };
 }
